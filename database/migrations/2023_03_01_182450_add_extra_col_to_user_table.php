@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('address')->nullable();
             $table->bigInteger('department_id')->nullable();
             $table->string("date_of_join")->nullable();
+            $table->text('image')->nullable();
             $table->boolean('is_present')->nullable();
         });
     }
@@ -40,6 +41,7 @@ return new class extends Migration
                 'deperment_id',
                 'date_of_join',
                 'is_present',
+                'image',
             ]);
         });
     }

@@ -5,94 +5,77 @@
 @section('content')
     <div class="card">
         <div class="card-body ">
-            <form action="{{ route('employee.store') }}" method="post">
+            <form action="{{ route('employee.store') }}" method="post" enctype="multipart/form-data" id="create">
                 @csrf
-                <div class="my-2">
-                    <div class="form-outline">
-                        <input type="text" class="form-control @error('employeeId') is-invalid @enderror" name="employeeId"
-                            value="{{ old('employeeId') }}">
+                <div class="my-4">
+                    <div class="form-outline ">
+                        <input type="text" class="form-control  @error('employeeId') is-invalid @enderror"
+                            name="employeeId" value="{{ old('employeeId') }}">
                         <label for="" class="form-label">Employee ID</label>
                     </div>
-                    @error('employeeId')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
                 </div>
-                <div class="my-2">
+                <div class="my-4">
                     <div class="form-outline">
                         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                             value="{{ old('name') }}">
                         <label for="" class="form-label">Name</label>
                     </div>
-                    @error('name')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+
                 </div>
-                <div class="my-2">
+                <div class="my-4">
                     <div class="form-outline">
                         <input type="number" class="form-control @error('phone') is-invalid @enderror" name="phone"
                             value="{{ old('phone') }}">
                         <label for="" class="form-label">Phone</label>
                     </div>
-                    @error('phone')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+
                 </div>
-                <div class="my-2">
+                <div class="my-4">
                     <div class="form-outline">
-                        <input type="text" class="form-control @error('nrcNumber') is-invalid @enderror" name="nrcNumber"
-                            value="{{ old('nrcNumber') }}">
+                        <input type="text" class="form-control @error('nrc_number') is-invalid @enderror"
+                            name="nrcNumber" value="{{ old('nrcNumber') }}">
                         <label for="" class="form-label">NRC Number</label>
                     </div>
-                    @error('nrcNumber')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+
                 </div>
-                <div class="my-2">
+                <div class="my-4">
                     <div class="form-outline">
                         <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
                             value="{{ old('email') }}">
                         <label for="" class="form-label">Email</label>
                     </div>
-                    @error('email')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+
                 </div>
-                <div class="my-2">
+                <div class="my-4">
                     <div class="">
                         <label for="">Gender</label>
-                        <select name="gender" id="" class=" form-select @error('gender') is-invalid @enderror">
+                        <select name="gender" class=" form-select @error('gender') is-invalid @enderror">
                             <option value="">Choose Gender</option>
                             <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}>Male</option>
                             <option value="female" {{ old('gender') == 'female' ? 'selected' : '' }}>Female</option>
                         </select>
                     </div>
-                    @error('gender')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+
                 </div>
-                <div class="my-2">
+                <div class="my-4">
                     <div class="form-outline">
                         <input type="text" class="form-control birthday @error('birthday') is-invalid @enderror"
                             name="birthday" value="{{ old('birthday') }}">
                         <label for="" class="form-label">Birthday</label>
                     </div>
-                    @error('birthday')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+
                 </div>
                 <div class="my">
                     <div class="form-outline">
                         <textarea class="form-control @error('address') is-invalid @enderror" rows="4" name="address">{{ old('address') }}</textarea>
                         <label class="form-label">Address</label>
                     </div>
-                    @error('address')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+
                 </div>
-                <div class="my-2">
+                <div class="my-4">
                     <div class="">
-                        <select name="department" id=""
-                            class="form-select @error('department') is-invalid @enderror">
+                        <label for="">Department</label>
+                        <select name="department" class="form-select @error('department') is-invalid @enderror">
                             @foreach ($departments as $department)
                                 <option value="{{ $department->id }}"
                                     {{ old('department') == $department->title ? 'selected' : '' }}>
@@ -100,43 +83,46 @@
                             @endforeach
                         </select>
                     </div>
-                    @error('department')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+
                 </div>
-                <div class="my-2">
+                <div class="my-4">
                     <div class="form-outline">
                         <input type="text" class="form-control date_of_join @error('date_of_join') is-invalid @enderror"
                             name="date_of_join" value="{{ old('date_of_join') }}">
                         <label for="" class="form-label">Date of Join</label>
                     </div>
-                    @error('date_of_join')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+
                 </div>
-                <div class="my-2">
+                <div class="my-4">
                     <div class="">
                         <label for="">Is Present?</label>
-                        <select name="is_present" id=""
-                            class="form-select @error('is_present') is-invalid @enderror">
+                        <select name="is_present" class="form-select @error('is_present') is-invalid @enderror">
                             <option value="">Choose Option</option>
                             <option value="1" {{ old('is_present') == '1' ? 'selected' : '' }}>Yes</option>
                             <option value="0" {{ old('is_present') == '0' ? 'selected' : '' }}>No</option>
                         </select>
                     </div>
-                    @error('is_present')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+
                 </div>
-                <div class="my-2">
+
+                <div class="my-4">
+                    <div class="">
+                        <label for="profile_img" class="form-label">Prfile Image</label>
+                        <input type="file" class="form-control @error('profileImg') is-invalid @enderror"
+                            name="profileImg" id="profile_img">
+                        <div class="preview_img my-4" id="preview_img">
+
+                        </div>
+                    </div>
+
+                </div>
+                <div class="my-4">
                     <div class="form-outline">
                         <input type="password" class="form-control @error('password') is-invalid @enderror"
                             name="password" value="{{ old('password') }}">
                         <label for="" class="form-label">Password</label>
                     </div>
-                    @error('password')
-                        <small class="text-danger">{{ $message }}</small>
-                    @enderror
+
                 </div>
                 <div class="mt-5 mb-4 d-flex justify-content-center ">
                     <div class="col-md-5">
@@ -150,6 +136,8 @@
     </div>
 @endsection
 @section('script')
+    {!! JsValidator::formRequest('App\Http\Requests\StoreEmployee'), 'create-form' !!}
+
     <script>
         $(document).ready(function() {
             $('.birthday').daterangepicker({
@@ -158,7 +146,7 @@
                 "showDropdowns": true,
                 "maxDate": moment(),
                 "locale": {
-                    "format": "YYYY-MM-YY",
+                    "format": "YYYY-MM-DD",
                 }
             });
             $('.date_of_join').daterangepicker({
@@ -166,10 +154,16 @@
                 "autoApply": true,
                 "showDropdowns": true,
                 "locale": {
-                    "format": "YYYY-MM-YY",
+                    "format": "YYYY-MM-DD",
                 }
             });
-
+            $('#profile_img').on('change', function() {
+                var file_length = document.getElementById('profile_img').files.length;
+                $('#preview_img').html('');
+                for (let i = 0; i < file_length; i++) {
+                    $('#preview_img').append(`<img src="${URL.createObjectURL(event.target.files[i])}" />`);
+                }
+            });
 
         })
     </script>

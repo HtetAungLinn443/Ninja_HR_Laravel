@@ -18,6 +18,7 @@
                         <th class="text-center">Email</th>
                         <th class="text-center">Department</th>
                         <th class="text-center">Is Present?</th>
+                        <th class="text-center">Action</th>
                         <th class="hidden">Updated at</th>
                     </tr>
                 </thead>
@@ -40,8 +41,8 @@
                         name: 'plus-icon',
                         class: 'text-center'
                     }, {
-                        data: 'id',
-                        name: 'id',
+                        data: 'employee_id',
+                        name: 'employee_id',
                         class: 'text-center'
                     },
                     {
@@ -71,6 +72,11 @@
                         class: "text-center"
                     },
                     {
+                        data: 'action',
+                        name: 'action',
+                        class: "text-center"
+                    },
+                    {
                         data: 'updated_at',
                         name: 'updated_at',
                         class: "text-center"
@@ -78,7 +84,7 @@
 
                 ],
                 order: [
-                    [6, 'desc']
+                    [7, 'desc']
                 ],
                 columnDefs: [{
                         targets: [0],
@@ -97,6 +103,14 @@
                         visible: false,
                     },
                 ],
+                language: {
+                    "paginate": {
+                        'previous': '<i class="fa-regular fa-circle-left"></i>',
+                        'next': '<i class="fa-regular fa-circle-right"></i>',
+                    },
+                    "processing": '<img src="./image/loading.gif" alt="Loading..." style="width:70px">'
+
+                }
             })
             @if (session('createSuccess'))
                 Swal.fire({

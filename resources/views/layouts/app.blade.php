@@ -58,7 +58,7 @@
                             <span>Menu</span>
                         </li>
                         <li>
-                            <a href="#">
+                            <a href="{{ route('dashboard') }}">
                                 <i class="fa fa-home"></i>
                                 <span>Home</span>
                             </a>
@@ -191,6 +191,9 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 {{-- sweet alert 2 --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{{-- JS Validation --}}
+<script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 <script>
     jQuery(function($) {
 
