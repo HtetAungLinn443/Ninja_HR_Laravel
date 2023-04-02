@@ -14,6 +14,7 @@ html {
     --btn-hover: #4ae59f !important;
     --white-color: #fff !important;
     --dark-color: #000000d0 !important;
+    --secondary-color: #2D3747;
 }
 
 .badge {
@@ -24,6 +25,10 @@ html {
 .btn-primary {
     color: var(--white-color);
     background-color: var(--primary-color);
+}
+
+.text-theme {
+    color: var(--primary-color);
 }
 
 .btn-primary:hover {
@@ -48,7 +53,7 @@ html {
 .content {
     height: 85vh;
     overflow: scroll;
-    z-index: 10;
+    z-index: 1;
 }
 
 
@@ -61,6 +66,7 @@ html {
     padding: 15px 0;
     box-shadow: var(--box-shadow);
     background-color: var(--white-color);
+    z-index: 100;
 }
 
 .bottom-menu a {
@@ -251,6 +257,9 @@ html {
     object-fit: cover;
     height: 100%;
     width: 100%;
+    background: #eee;
+    padding: 3px;
+    border-radius: 10px;
 }
 
 .sidebar-wrapper .sidebar-header .user-info {
@@ -478,7 +487,7 @@ html {
 /*-----------------------------chiller-theme-------------------------------------------------*/
 
 .chiller-theme .sidebar-wrapper {
-    background: #31353D;
+    background: var(--secondary-color);
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-header,
@@ -523,7 +532,7 @@ html {
 .chiller-theme .sidebar-wrapper .sidebar-dropdown .sidebar-submenu li a:hover:before,
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu:focus+span,
 .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown.active a i {
-    color: #16c7ff;
+    color: var(--btn-hover);
     text-shadow: 0px 0px 10px rgba(22, 199, 255, 0.5);
 }
 
@@ -531,7 +540,7 @@ html {
 .chiller-theme .sidebar-wrapper .sidebar-menu .sidebar-dropdown div,
 .chiller-theme .sidebar-wrapper .sidebar-search input.search-menu,
 .chiller-theme .sidebar-wrapper .sidebar-search .input-group-text {
-    background: #3a3f48;
+    background: var(--secondary-color);
 }
 
 .chiller-theme .sidebar-wrapper .sidebar-menu .header-menu span {
@@ -554,6 +563,16 @@ html {
 
 
 /*------------------- Data Table -------------------*/
+
+.table tr,
+.table th {
+    vertical-align: middle;
+}
+
+.action-btn {
+    display: flex;
+    justify-content: center;
+}
 
 .active>.page-link,
 .page-link.active {
@@ -594,6 +613,20 @@ table.dataTable>tbody>tr.child ul.dtr-details li {
     margin: 3px !important;
 }
 
+.action-icon {
+    display: flex;
+    gap: 2px;
+}
+
+.action-icon a {
+    text-align: center;
+}
+
+mark {
+    background: #4cd195;
+    padding: 0px;
+}
+
 
 /*---------------- Create add Image in Employee ------------------*/
 
@@ -602,6 +635,28 @@ table.dataTable>tbody>tr.child ul.dtr-details li {
     border-radius: 5px;
     border: 2px solid #eee;
     margin: 3px;
+}
+
+
+/*---------------------- Employee Details ---------------------------*/
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 1px solid var(--primary-color);
+}
+
+.border-dash {
+    border-left: 2px dashed #b9b9b9;
+}
+
+.profile-thumbnail {
+    width: 70px;
+    height: 70px;
+    border-radius: 10px;
+    border: 1px solid #eee;
+    padding: 5px;
 }
 
 @media screen and (max-width: 767px) {

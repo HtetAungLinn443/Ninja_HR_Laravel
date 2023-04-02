@@ -8,6 +8,7 @@
 
     <title>@yield('title')</title>
 
+    <link rel="shortcut icon" href="{{ asset('image/logo.jpg') }}" type="image/x-icon">
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <!-- Google Fonts -->
@@ -23,7 +24,7 @@
     @yield('extra_css')
 </head>
 
-<body class="font-sans antialiased">
+<body style="background:#edf2f6;">
 
     <div class="page-wrapper chiller-theme">
 
@@ -37,13 +38,13 @@
                 </div>
                 <div class="sidebar-header">
                     <div class="user-pic">
-                        <img class="img-responsive img-rounded" src="" alt="User picture">
+                        <img class="img-responsive img-rounded" src="{{ Auth::user()->profile_img_path() }}"
+                            alt="">
                     </div>
                     <div class="user-info">
-                        <span class="user-name">Jhon
-                            <strong>Smith</strong>
-                        </span>
-                        <span class="user-role">Administrator</span>
+                        <span class="user-name">{{ Auth::user()->name }}</span>
+                        <span
+                            class="user-role">{{ Auth::user()->department ? Auth::user()->department->title : '-' }}</span>
                         <span class="user-status">
                             <i class="fa fa-circle"></i>
                             <span>Online</span>
@@ -67,6 +68,24 @@
                             <a href="{{ route('employee.index') }}">
                                 <i class="fa fa-users"></i>
                                 <span>Employees</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('department.index') }}">
+                                <i class="fa fa-sitemap"></i>
+                                <span>Department</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('role.index') }}">
+                                <i class="fa fa-user-shield"></i>
+                                <span>Role</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('permission.index') }}">
+                                <i class="fa fa-shield"></i>
+                                <span>Permission</span>
                             </a>
                         </li>
                         <li class="sidebar-dropdown">
@@ -126,18 +145,25 @@
                 <div class="d-flex justify-content-center">
                     <div class="col-md-8">
                         <div class="d-flex justify-content-between">
-                            <a id="show-sidebar" class="" href="#">
-                                <i class="fas fa-bars"></i>
-                            </a>
+                            @if (request()->is('dashboard'))
+                                <a id="show-sidebar" href="#">
+                                    <i class="fas fa-bars"></i>
+                                </a>
+                            @else
+                                <a id="back-btn" class="text-dark" href="#">
+                                    <i class="fas fa-chevron-left"></i>
+                                </a>
+                            @endif
+
                             <h5>@yield('title')</h5>
-                            <a href=""></a>
+                            <div class=""></div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="my-4 content">
                 <div class="d-flex justify-content-center">
-                    <div class="col-md-8 col-sm-11">
+                    <div class="col-11 col-md-8">
                         @yield('content')
                     </div>
                 </div>
@@ -146,7 +172,7 @@
                 <div class="d-flex justify-content-center">
                     <div class="col-md-8">
                         <div class="d-flex justify-content-between">
-                            <a href="">
+                            <a href="{{ route('dashboard') }}">
                                 <i class="fa fa-home"></i>
                                 <p class="m-0">Home</p>
                             </a>
@@ -158,9 +184,9 @@
                                 <i class="fa fa-home"></i>
                                 <p class="m-0">Home</p>
                             </a>
-                            <a href="">
-                                <i class="fa fa-home"></i>
-                                <p class="m-0">Home</p>
+                            <a href="{{ route('profile#Page') }}">
+                                <i class="fa fa-user"></i>
+                                <p class="m-0">Profile</p>
                             </a>
                         </div>
                     </div>
@@ -182,6 +208,9 @@
 <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/rowreorder/1.3.2/js/dataTables.rowReorder.min.js"></script>
+{{-- Datatable mark js --}}
+<script src="https://cdn.jsdelivr.net/g/mark.js(jquery.mark.min.js)"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.js"></script>
 {{-- Bootstrap --}}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
@@ -191,12 +220,23 @@
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
 {{-- sweet alert 2 --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- sweet alert 1 --}}
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 {{-- JS Validation --}}
 <script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
 <script>
     jQuery(function($) {
-
+        let token = document.head.querySelector('meta[name="csrf-token"]');
+        if (token) {
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': token.content,
+                }
+            })
+        } else {
+            console.error('CSRF Token not found.');
+        }
         $(".sidebar-dropdown > a").click(function() {
             $(".sidebar-submenu").slideUp(200);
             if (
@@ -215,18 +255,53 @@
             e.preventDefault();
             $(".page-wrapper").removeClass("toggled");
         });
+        $('#back-btn').on('click', function(e) {
+            e.preventDefault();
+            window.history.go(-1);
+            return false;
+        })
 
-        document.addEventListener('click', (event) => {
-            if (document.getElementById('show-sidebar').contains(event.target)) {
-                $(".page-wrapper").addClass("toggled");
-            } else if (!document.getElementById('sidebar').contains(event.target)) {
-                $(".page-wrapper").removeClass("toggled");
-            }
-        });
+        @if (request()->is('/dashboard'))
+            document.addEventListener('click', (event) => {
+                if (document.getElementById('show-sidebar').contains(event.target)) {
+                    $(".page-wrapper").addClass("toggled");
+                } else if (!document.getElementById('sidebar').contains(event.target)) {
+                    $(".page-wrapper").removeClass("toggled");
+                }
+            });
+        @endif
 
         $("#show-sidebar").click(function(e) {
             e.preventDefault();
             $(".page-wrapper").addClass("toggled");
+        });
+        $.extend(true, $.fn.dataTable.defaults, {
+            processing: true,
+            serverSide: true,
+            responsive: true,
+            mark: true,
+
+            columnDefs: [{
+                    targets: 'no-sort',
+                    orderable: false,
+                },
+                {
+                    targets: 'no-search',
+                    searchable: false,
+                },
+                {
+                    targets: 'hidden',
+                    visible: false,
+                },
+            ],
+            language: {
+                "paginate": {
+                    'previous': '<i class="fa-regular fa-circle-left"></i>',
+                    'next': '<i class="fa-regular fa-circle-right"></i>',
+                },
+                "processing": '<img src="./image/loading.gif" alt="Loading..." style="width:70px">'
+
+            },
         });
     });
 </script>

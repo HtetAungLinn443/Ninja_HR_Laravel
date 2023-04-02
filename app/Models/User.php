@@ -35,6 +35,7 @@ class User extends Authenticatable
         'address',
         'department_id',
         'date_of_join',
+        'image',
         'is_present',
     ];
 
@@ -72,5 +73,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function profile_img_path()
+    {
+        if ($this->image) {
+            return asset('storage/employee/' . $this->image);
+        }
+
+        return null;
+    }
 
 }

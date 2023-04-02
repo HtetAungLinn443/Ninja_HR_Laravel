@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', 'Employees')
+@section('title', 'Department')
 
 @section('content')
     <div class="mb-3">
-        <a href="{{ route('employee.create') }}" class="btn btn-primary">Create Employee</a>
+        <a href="{{ route('department.create') }}" class="btn btn-primary">Create Department</a>
     </div>
     <div class="card">
         <div class="card-body">
@@ -12,12 +12,7 @@
                 <thead>
                     <tr class="">
                         <th class="text-center no-sort no-search"></th>
-                        <th class="text-center no-sort no-search"></th>
-                        <th class="text-center">Employee ID</th>
-                        <th class="text-center">Phone</th>
-                        <th class="text-center">Email</th>
-                        <th class="text-center">Department</th>
-                        <th class="text-center">Is Present?</th>
+                        <th class="text-center">Title</th>
                         <th class="text-center no-sort">Action</th>
                         <th class="hidden">Updated at</th>
                     </tr>
@@ -33,40 +28,19 @@
 
             $('#user-table').DataTable({
 
-                ajax: '/employee/datatable/ssd',
+                ajax: '/department/datatable/ssd',
                 columns: [{
                         data: 'plus-icon',
                         name: 'plus-icon',
                         class: 'text-center'
                     }, {
-                        data: 'profile_img',
-                        name: 'profile_img',
-                        class: "text-center"
-                    }, {
-                        data: 'employee_id',
-                        name: 'employee_id',
-                        class: 'text-center'
-                    }, {
-                        data: 'phone',
-                        name: 'phone',
-                        class: "text-center"
-
-                    }, {
-                        data: 'email',
-                        name: 'email',
-                        class: "text-center"
-                    }, {
-                        data: 'department_name',
-                        name: 'department_name',
-                        class: "text-center"
-                    }, {
-                        data: 'is_present',
-                        name: 'is_present',
+                        data: 'title',
+                        name: 'title',
                         class: "text-center"
                     }, {
                         data: 'action',
                         name: 'action',
-                        class: "text-center"
+                        class: "text-center action-btn"
                     }, {
                         data: 'updated_at',
                         name: 'updated_at',
@@ -75,7 +49,7 @@
 
                 ],
                 order: [
-                    [8, 'desc']
+                    [3, 'desc']
                 ],
                 columnDefs: [{
                         targets: [0],
@@ -115,9 +89,9 @@
                         if (willDelete) {
                             $.ajax({
                                 method: "DELETE",
-                                url: `/employee/${id}`,
+                                url: `/department/${id}`,
                             }).done(function(res) {
-                                // location.reload()
+
                                 $('#user-table').DataTable().ajax.reload();
                             })
                         }

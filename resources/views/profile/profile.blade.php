@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Employee Details')
+@section('title', 'Profile')
 
 @section('content')
     <div class="card">
@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 border-dash">
+                <div class="col-md-6 border-dash my-3">
                     <p class="mb-1"><b>Phone</b>: <span class=" text-muted">{{ $employee->phone }}</span></p>
                     <p class="mb-1"><b>Email</b>: <span class=" text-muted">{{ $employee->email }}</span></p>
                     <p class="mb-1"><b>NRC Number</b>: <span class=" text-muted">{{ $employee->nrc_number }}</span></p>
