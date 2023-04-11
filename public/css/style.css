@@ -659,6 +659,31 @@ mark {
     padding: 5px;
 }
 
+
+/*------------------- Date time picker  ----------------------*/
+
+.daterangepicker .drp-buttons .btn {
+    font-size: 12px !important;
+}
+
+
+/*------------------ Larapass form ----------------------*/
+
+.register-btn {
+    padding: 5px;
+    background: #fff;
+    border: 1px solid #eee;
+    border-radius: 10px;
+    position: relative;
+}
+
+.register-btn i {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    color: var(--primary-color);
+}
+
 @media screen and (max-width: 767px) {
     div.dataTables_wrapper div.dataTables_length,
     div.dataTables_wrapper div.dataTables_filter,

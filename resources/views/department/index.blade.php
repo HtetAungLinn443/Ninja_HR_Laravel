@@ -3,9 +3,11 @@
 @section('title', 'Department')
 
 @section('content')
-    <div class="mb-3">
-        <a href="{{ route('department.create') }}" class="btn btn-primary">Create Department</a>
-    </div>
+    @can('create_department')
+        <div class="mb-3">
+            <a href="{{ route('department.create') }}" class="btn btn-primary">Create Department</a>
+        </div>
+    @endcan
     <div class="card">
         <div class="card-body">
             <table class=" table-bordered table " id="user-table" style="width: 100%;">

@@ -5,12 +5,12 @@
 @section('content')
     <div class="card">
         <div class="card-body ">
-            <form action="{{ route('employee.store') }}" method="post" enctype="multipart/form-data" id="create">
+            <form action="{{ route('employee.store') }}" method="post" enctype="multipart/form-data" id="create-form">
                 @csrf
                 <div class="my-4">
                     <div class="form-outline ">
                         <input type="text" class="form-control  @error('employeeId') is-invalid @enderror"
-                            name="employeeId" value="{{ old('employeeId') }}">
+                            name="employeeId" value="{{ old('employeeId') }}" autofocus>
                         <label for="" class="form-label">Employee ID</label>
                     </div>
                 </div>
@@ -63,15 +63,15 @@
                             name="birthday" value="{{ old('birthday') }}">
                         <label for="" class="form-label">Birthday</label>
                     </div>
-
                 </div>
-                <div class="my">
+                <div class="my-4">
                     <div class="form-outline">
                         <textarea class="form-control @error('address') is-invalid @enderror" rows="4" name="address">{{ old('address') }}</textarea>
                         <label class="form-label">Address</label>
                     </div>
 
                 </div>
+
                 <div class="my-4">
                     <div class="">
                         <label for="">Department</label>
@@ -83,7 +83,17 @@
                             @endforeach
                         </select>
                     </div>
-
+                </div>
+                <div class="my-4">
+                    <div class="">
+                        <label for="">Role (or) Designation</label>
+                        <select name="roles[]" class="form-select custom-select @error('roles') is-invalid @enderror"
+                            multiple>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->name }}">{{ $role->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="my-4">
                     <div class="form-outline">
@@ -114,7 +124,13 @@
 
                         </div>
                     </div>
-
+                </div>
+                <div class="my-4">
+                    <div class="form-outline">
+                        <input type="number" class="form-control @error('pin_code') is-invalid @enderror"
+                            name="pin_code" value="{{ old('pin_code') }}">
+                        <label for="" class="form-label">Pin Code</label>
+                    </div>
                 </div>
                 <div class="my-4">
                     <div class="form-outline">

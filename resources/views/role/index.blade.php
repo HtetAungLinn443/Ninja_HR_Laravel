@@ -3,9 +3,11 @@
 @section('title', 'Role')
 
 @section('content')
-    <div class="mb-3">
-        <a href="{{ route('role.create') }}" class="btn btn-primary">Create Role</a>
-    </div>
+    @can('create_role')
+        <div class="mb-3">
+            <a href="{{ route('role.create') }}" class="btn btn-primary">Create Role</a>
+        </div>
+    @endcan
     <div class="card">
         <div class="card-body">
             <table class="table-bordered table" id="role-table" style="width: 100%;">

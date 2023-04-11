@@ -12,8 +12,8 @@
                 <div class="my-4">
                     <div class="form-outline">
                         <input type="text" class="form-control @error('employeeId') is-invalid @enderror" name="employeeId"
-                            value="{{ old('employeeId', $employee->employee_id) }}">
-                        <label for="" class="form-label">Employee ID</label>
+                            value="{{ old('employeeId', $employee->employee_id) }}" autofocus>
+                        <label class="form-label">Employee ID</label>
                     </div>
 
                 </div>
@@ -21,7 +21,7 @@
                     <div class="form-outline">
                         <input type="text" class="form-control @error('name') is-invalid @enderror" name="name"
                             value="{{ old('name', $employee->name) }}">
-                        <label for="" class="form-label">Name</label>
+                        <label class="form-label">Name</label>
                     </div>
 
                 </div>
@@ -29,7 +29,7 @@
                     <div class="form-outline">
                         <input type="number" class="form-control @error('phone') is-invalid @enderror" name="phone"
                             value="{{ old('phone', $employee->phone) }}">
-                        <label for="" class="form-label">Phone</label>
+                        <label class="form-label">Phone</label>
                     </div>
 
                 </div>
@@ -37,7 +37,7 @@
                     <div class="form-outline">
                         <input type="text" class="form-control @error('nrcNumber') is-invalid @enderror" name="nrcNumber"
                             value="{{ old('nrcNumber', $employee->nrc_number) }}">
-                        <label for="" class="form-label">NRC Number</label>
+                        <label class="form-label">NRC Number</label>
                     </div>
 
                 </div>
@@ -45,14 +45,14 @@
                     <div class="form-outline">
                         <input type="email" class="form-control @error('email') is-invalid @enderror" name="email"
                             value="{{ old('email', $employee->email) }}">
-                        <label for="" class="form-label">Email</label>
+                        <label class="form-label">Email</label>
                     </div>
 
                 </div>
                 <div class="my-4">
                     <div class="">
-                        <label for="">Gender</label>
-                        <select name="gender" id="" class=" form-select @error('gender') is-invalid @enderror">
+                        <label for="gender">Gender</label>
+                        <select name="gender" id="gender" class=" form-select @error('gender') is-invalid @enderror">
                             <option value="">Choose Gender</option>
                             <option value="male" {{ old('gender') == 'male' ? 'selected' : '' }}
                                 @if ($employee->gender == 'male') selected @endif>Male</option>
@@ -66,7 +66,7 @@
                     <div class="form-outline">
                         <input type="text" class="form-control birthday @error('birthday') is-invalid @enderror"
                             name="birthday" value="{{ old('birthday', $employee->birthday) }}">
-                        <label for="" class="form-label">Birthday</label>
+                        <label class="form-label">Birthday</label>
                     </div>
 
                 </div>
@@ -79,7 +79,8 @@
                 </div>
                 <div class="my-4">
                     <div class="">
-                        <select name="department" id=""
+                        <label for="department">Department</label>
+                        <select name="department" id="department"
                             class="form-select @error('department') is-invalid @enderror">
                             @foreach ($departments as $department)
                                 <option value="{{ $department->id }}"
@@ -89,19 +90,30 @@
                             @endforeach
                         </select>
                     </div>
-
+                </div>
+                <div class="my-4">
+                    <div class="">
+                        <label>Role (or) Designation</label>
+                        <select name="roles[]" class="form-select custom-select @error('roles') is-invalid @enderror"
+                            multiple>
+                            @foreach ($roles as $role)
+                                <option value="{{ $role->name }}" @if (in_array($role->id, $old_roles)) selected @endif>
+                                    {{ $role->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
                 <div class="my-4">
                     <div class="form-outline">
                         <input type="text" class="form-control date_of_join @error('date_of_join') is-invalid @enderror"
                             name="date_of_join" value="{{ old('date_of_join', $employee->date_of_join) }}">
-                        <label for="" class="form-label">Date of Join</label>
+                        <label class="form-label">Date of Join</label>
                     </div>
 
                 </div>
                 <div class="my-4">
                     <div class="">
-                        <label for="">Is Present?</label>
+                        <label>Is Present?</label>
                         <select name="is_present" id=""
                             class="form-select @error('is_present') is-invalid @enderror">
                             <option value="">Choose Option</option>
@@ -128,9 +140,17 @@
                 </div>
                 <div class="my-4">
                     <div class="form-outline">
+                        <input type="number" class="form-control @error('pin_code') is-invalid @enderror"
+                            name="pin_code" value="{{ old('pin_code', $employee->pin_code) }}">
+                        <label class="form-label">Pin Code</label>
+                    </div>
+                </div>
+
+                <div class="my-4">
+                    <div class="form-outline">
                         <input type="password" class="form-control @error('password') is-invalid @enderror"
                             name="password" value="{{ old('password') }}">
-                        <label for="" class="form-label">Password</label>
+                        <label class="form-label">Password</label>
                     </div>
 
                 </div>

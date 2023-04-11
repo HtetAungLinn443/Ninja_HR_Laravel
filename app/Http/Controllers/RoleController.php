@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -14,13 +15,19 @@ class RoleController extends Controller
     //
     public function index()
     {
-
+        if (!Auth::user()->can('view_role')) {
+            abort(403, 'Unauthorized Action');
+        }
         return view('role.index');
     }
 
     // Role DataTable
     public function roleDatatable(Request $request)
     {
+        if (!Auth::user()->can('view_role')) {
+            abort(403, 'Unauthorized Action');
+        }
+
         $roles = Role::query();
 
         return DataTables::of($roles)
@@ -39,10 +46,15 @@ class RoleController extends Controller
             })
 
             ->addColumn('action', function ($each) {
-                $edit_icon = '<a href="' . route('role.edit', $each->id) . '" class="text-warning"><i class="fas fa-edit"> </i> </a>';
+                $edit_icon = '';
+                $delete_icon = '';
+                if (Auth::user()->can('edit_role')) {
+                    $edit_icon = '<a href="' . route('role.edit', $each->id) . '" class="text-warning"><i class="fas fa-edit"> </i> </a>';
+                }
 
-                $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '"><i class="fa fa-trash-alt"> </i> </a>';
-
+                if (Auth::user()->can('delete_role')) {
+                    $delete_icon = '<a href="#" class="text-danger delete-btn" data-id="' . $each->id . '"><i class="fa fa-trash-alt"> </i> </a>';
+                }
                 return '<div class="action-icon">' . $edit_icon . $delete_icon . '</div>';
 
             })
@@ -53,6 +65,10 @@ class RoleController extends Controller
     // Role Create
     public function create()
     {
+        if (!Auth::user()->can('create_role')) {
+            abort(403, 'Unauthorized Action');
+        }
+
         $permissions = Permission::all();
         return view('role.create', compact('permissions'));
     }
@@ -60,6 +76,9 @@ class RoleController extends Controller
     // Store Role data
     public function store(Request $request)
     {
+        if (!Auth::user()->can('create_role')) {
+            abort(403, 'Unauthorized Action');
+        }
 
         $this->validationRule($request);
         $role = Role::create([
@@ -72,6 +91,10 @@ class RoleController extends Controller
     // Role Edit
     public function edit($id)
     {
+        if (!Auth::user()->can('edit_role')) {
+            abort(403, 'Unauthorized Action');
+        }
+
         $permissions = Permission::all();
         $role = Role::findOrFail($id);
         $old_permissions = $role->permissions->pluck('id')->toArray();
@@ -80,14 +103,15 @@ class RoleController extends Controller
     // Role Update
     public function update(Request $request)
     {
+        if (!Auth::user()->can('edit_role')) {
+            abort(403, 'Unauthorized Action');
+        }
 
         $this->validationRule($request);
         Role::where('id', $request->id)->update([
             'name' => $request->name,
         ]);
         $role = Role::findOrFail($request->id);
-
-        // dd($role);
 
         $old_permission = $role->permissions;
 
@@ -100,6 +124,10 @@ class RoleController extends Controller
     // Delete Role
     public function destroy($id)
     {
+        if (!Auth::user()->can('delete_role')) {
+            abort(403, 'Unauthorized Action');
+        }
+
         Role::findOrFail($id)->delete();
         return 'success';
     }

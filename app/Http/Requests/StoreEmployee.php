@@ -34,8 +34,9 @@ class StoreEmployee extends FormRequest
             'department' => 'required',
             'date_of_join' => 'required',
             'profileImg' => 'mimes:jpg,png,jpeg,web',
-            'password' => 'required',
             'is_present' => 'required',
+            'pin_code' => 'required|min:6|max:6|unique:users,pin_code',
+            'password' => 'required',
         ];
 
     }

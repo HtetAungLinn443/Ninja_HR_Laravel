@@ -3,9 +3,11 @@
 @section('title', 'Employees')
 
 @section('content')
-    <div class="mb-3">
-        <a href="{{ route('employee.create') }}" class="btn btn-primary">Create Employee</a>
-    </div>
+    @can('create_employee')
+        <div class="mb-3">
+            <a href="{{ route('employee.create') }}" class="btn btn-primary">Create Employee</a>
+        </div>
+    @endcan
     <div class="card">
         <div class="card-body">
             <table class=" table-bordered table " id="user-table" style="width: 100%;">
@@ -17,6 +19,7 @@
                         <th class="text-center">Phone</th>
                         <th class="text-center">Email</th>
                         <th class="text-center">Department</th>
+                        <th class="text-center">Role (or) Designation</th>
                         <th class="text-center">Is Present?</th>
                         <th class="text-center no-sort">Action</th>
                         <th class="hidden">Updated at</th>
@@ -60,6 +63,10 @@
                         name: 'department_name',
                         class: "text-center"
                     }, {
+                        data: 'roles',
+                        name: 'roles',
+                        class: "text-center"
+                    }, {
                         data: 'is_present',
                         name: 'is_present',
                         class: "text-center"
@@ -75,7 +82,7 @@
 
                 ],
                 order: [
-                    [8, 'desc']
+                    [9, 'desc']
                 ],
                 columnDefs: [{
                         targets: [0],

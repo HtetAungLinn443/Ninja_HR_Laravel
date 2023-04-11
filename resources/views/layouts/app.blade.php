@@ -9,19 +9,35 @@
     <title>@yield('title')</title>
 
     <link rel="shortcut icon" href="{{ asset('image/logo.jpg') }}" type="image/x-icon">
+
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+
     <!-- MDB -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.css" rel="stylesheet" />
+
     {{-- Data Table --}}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.3/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
+
     {{-- Daterange Picker --}}
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+    {{-- Select 2 --}}
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    {{-- Main CSS --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @yield('extra_css')
+
+
+
+    {{-- @vite(['resources/js/app.js', 'resources/js/vendor/webauthn/webauthn.js']) --}}
+
+
 </head>
 
 <body style="background:#edf2f6;">
@@ -58,37 +74,70 @@
                         <li class="header-menu">
                             <span>Menu</span>
                         </li>
+
                         <li>
                             <a href="{{ route('dashboard') }}">
                                 <i class="fa fa-home"></i>
                                 <span>Home</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ route('employee.index') }}">
-                                <i class="fa fa-users"></i>
-                                <span>Employees</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('department.index') }}">
-                                <i class="fa fa-sitemap"></i>
-                                <span>Department</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('role.index') }}">
-                                <i class="fa fa-user-shield"></i>
-                                <span>Role</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('permission.index') }}">
-                                <i class="fa fa-shield"></i>
-                                <span>Permission</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-dropdown">
+                        @can('view_company_setting')
+                            <li>
+                                <a href="{{ route('company-setting.show', 1) }}">
+                                    <i class="fa-regular fa-building"></i>
+                                    <span>Company Setting</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view_employee')
+                            <li>
+                                <a href="{{ route('employee.index') }}">
+                                    <i class="fa fa-users"></i>
+                                    <span>Employees</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view_department')
+                            <li>
+                                <a href="{{ route('department.index') }}">
+                                    <i class="fa fa-sitemap"></i>
+                                    <span>Department</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view_role')
+                            <li>
+                                <a href="{{ route('role.index') }}">
+                                    <i class="fa fa-user-shield"></i>
+                                    <span>Role</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view_permission')
+                            <li>
+                                <a href="{{ route('permission.index') }}">
+                                    <i class="fa fa-shield"></i>
+                                    <span>Permission</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view_attendance')
+                            <li>
+                                <a href="{{ route('attendance.index') }}">
+                                    <i class="fa fa-calendar-check"></i>
+                                    <span>Attendance (Employee)</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view_attendance_overview')
+                            <li>
+                                <a href="{{ route('attendance.overview') }}">
+                                    <i class="fa fa-calendar-check"></i>
+                                    <span>Attendance (Overview)</span>
+                                </a>
+                            </li>
+                        @endcan
+                        {{-- <li class="sidebar-dropdown">
                             <a href="#">
                                 <i class="fa fa-tachometer-alt"></i>
                                 <span>Dashboard</span>
@@ -109,9 +158,9 @@
                                     </li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> --}}
 
-                        <li class="header-menu">
+                        {{-- <li class="header-menu">
                             <span>Extra</span>
                         </li>
                         <li>
@@ -132,7 +181,7 @@
                                 <i class="fa fa-folder"></i>
                                 <span>Examples</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
                 <!-- sidebar-menu  -->
@@ -143,7 +192,7 @@
         <div id="app" class="">
             <div class="top-menu">
                 <div class="d-flex justify-content-center">
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                         <div class="d-flex justify-content-between">
                             @if (request()->is('dashboard'))
                                 <a id="show-sidebar" href="#">
@@ -163,25 +212,25 @@
             </div>
             <div class="my-4 content">
                 <div class="d-flex justify-content-center">
-                    <div class="col-11 col-md-8">
+                    <div class="col-11 col-md-10">
                         @yield('content')
                     </div>
                 </div>
             </div>
             <div class="bottom-menu">
                 <div class="d-flex justify-content-center">
-                    <div class="col-md-8">
+                    <div class="col-md-10">
                         <div class="d-flex justify-content-between">
                             <a href="{{ route('dashboard') }}">
                                 <i class="fa fa-home"></i>
                                 <p class="m-0">Home</p>
                             </a>
-                            <a href="">
-                                <i class="fa fa-home"></i>
-                                <p class="m-0">Home</p>
+                            <a href="{{ route('attendanceScan@admin') }}">
+                                <i class="fa fa-user-clock"></i>
+                                <p class="m-0">Attendance</p>
                             </a>
-                            <a href="">
-                                <i class="fa fa-home"></i>
+                            <a href="{{ route('checkin-checkout@user') }}">
+                                <i class="fa-solid fa-qrcode"></i>
                                 <p class="m-0">Home</p>
                             </a>
                             <a href="{{ route('profile#Page') }}">
@@ -201,32 +250,49 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
     integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
 </script>
+
 {{-- JQuery --}}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
 {{-- Data Table Script --}}
 <script src="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/rowreorder/1.3.2/js/dataTables.rowReorder.min.js"></script>
+
 {{-- Datatable mark js --}}
 <script src="https://cdn.jsdelivr.net/g/mark.js(jquery.mark.min.js)"></script>
 <script src="https://cdn.datatables.net/plug-ins/1.10.13/features/mark.js/datatables.mark.js"></script>
+
 {{-- Bootstrap --}}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous">
 </script>
+
 {{-- Date Range Picker --}}
 <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
 {{-- sweet alert 2 --}}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 {{-- sweet alert 1 --}}
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+{{-- select 2 --}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 {{-- JS Validation --}}
-<script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+<script type="text/javascript" src="{{ url('vendor/jsvalidation/js/jsvalidation.js') }}"></script>\
+
+{{-- lordicon --}}
+<script src="https://cdn.lordicon.com/ritcuqlt.js"></script>
+
+{{-- main js --}}
+<script src="{{ asset('js/app.js') }}"></script>
+
 <script>
-    jQuery(function($) {
+    $(document).ready(function() {
         let token = document.head.querySelector('meta[name="csrf-token"]');
         if (token) {
             $.ajaxSetup({
@@ -299,10 +365,17 @@
                     'previous': '<i class="fa-regular fa-circle-left"></i>',
                     'next': '<i class="fa-regular fa-circle-right"></i>',
                 },
-                "processing": '<img src="./image/loading.gif" alt="Loading..." style="width:70px">'
+                "processing": `<img src="{{ asset('image/loading.gif') }}" style="width:70px">`
 
             },
         });
+        $('.custom-select').select2({
+
+            theme: "classic",
+            placeholder: "-- Please Choose --",
+            allowClear: true
+        });
+
     });
 </script>
 @yield('script')

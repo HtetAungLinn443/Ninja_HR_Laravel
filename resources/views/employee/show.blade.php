@@ -16,7 +16,12 @@
                                     class="text-theme">{{ $employee->phone }}</span>
                             </p>
                             <p class=" text-muted mb-2"><span
-                                    class=" badge badge-pill badge-dark">{{ $employee->department ? $employee->department->title : '-' }}</span>
+                                    class=" badge rounded-pill badge-dark p-2">{{ $employee->department ? $employee->department->title : '-' }}</span>
+                            </p>
+                            <p class=" text-muted mb-2">
+                                @foreach ($employee->roles as $role)
+                                    <span class=" badge rounded-pill badge-primary p-2">{{ $role->name }}</span>
+                                @endforeach
                             </p>
                         </div>
                     </div>

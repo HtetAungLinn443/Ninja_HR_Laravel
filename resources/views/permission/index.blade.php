@@ -3,9 +3,11 @@
 @section('title', 'Permission')
 
 @section('content')
-    <div class="mb-3">
-        <a href="{{ route('permission.create') }}" class="btn btn-primary">Create Role</a>
-    </div>
+    @can('create_permission')
+        <div class="mb-3">
+            <a href="{{ route('permission.create') }}" class="btn btn-primary">Create Permission</a>
+        </div>
+    @endcan
     <div class="card">
         <div class="card-body">
             <table class="table-bordered table" id="permission-table" style="width: 100%;">
@@ -13,8 +15,10 @@
                     <tr class="">
                         <th class="text-center no-sort no-search"></th>
                         <th class="text-center">Name</th>
+                        <th class="">Created at</th>
+                        <th class="">Updated at</th>
                         <th class="text-center no-sort">Action</th>
-                        <th class="hidden">Updated at</th>
+
                     </tr>
                 </thead>
             </table>
@@ -38,18 +42,22 @@
                         name: 'name',
                         class: "text-center"
                     }, {
-                        data: 'action',
-                        name: 'action',
-                        class: "text-center action-btn"
+                        data: 'created_at',
+                        name: 'created_at',
+                        class: "text-center"
                     }, {
                         data: 'updated_at',
                         name: 'updated_at',
                         class: "text-center"
+                    }, {
+                        data: 'action',
+                        name: 'action',
+                        class: "text-center action-btn"
                     },
 
                 ],
                 order: [
-                    [3, 'desc']
+                    [4, 'desc']
                 ],
                 columnDefs: [{
                         targets: [0],
