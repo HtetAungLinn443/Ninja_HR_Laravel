@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Department;
+use App\Models\Salary;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -87,6 +88,10 @@ class User extends Authenticatable implements WebAuthnAuthenticatable
         }
 
         return null;
+    }
+    public function salaries()
+    {
+        return $this->hasMany(Salary::class, 'user_id', 'id');
     }
 
 }

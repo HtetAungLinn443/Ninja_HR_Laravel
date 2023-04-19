@@ -101,7 +101,6 @@
                             name="date_of_join" value="{{ old('date_of_join') }}">
                         <label for="" class="form-label">Date of Join</label>
                     </div>
-
                 </div>
                 <div class="my-4">
                     <div class="">

@@ -167,7 +167,7 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\UpdateEmployee'), 'edit-form' !!}
+    {!! JsValidator::formRequest('App\Http\Requests\UpdateEmployee'), '#edit-form' !!}
     <script>
         $(document).ready(function() {
             $('.birthday').daterangepicker({

@@ -87,7 +87,7 @@
 @endsection
 
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\UpdateCompanySetting'), 'edit-form' !!}
+    {!! JsValidator::formRequest('App\Http\Requests\UpdateCompanySetting'), '#edit-form' !!}
     <script>
         $(document).ready(function() {
             $('.timepicker').daterangepicker({

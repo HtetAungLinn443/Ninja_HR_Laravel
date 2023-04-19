@@ -35,7 +35,7 @@ class MyAttendanceController extends Controller
                 return $each->employee ? $each->employee->name : '-';
             })
             ->editColumn('updated_at', function ($each) {
-                return Carbon::parse($each->updated_at)->format('Y-md H:i:s');
+                return Carbon::parse($each->updated_at)->format('Y-m-d H:i:s');
             })
             ->addColumn('plus-icon', function ($each) {
                 return null;

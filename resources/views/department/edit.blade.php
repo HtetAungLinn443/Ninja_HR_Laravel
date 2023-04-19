@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Edit Employee')
+@section('title', 'Edit Department')
 
 @section('content')
     <div class="card">
@@ -29,7 +29,7 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\UpdateDepartment'), 'edit-form' !!}
+    {!! JsValidator::formRequest('App\Http\Requests\UpdateDepartment'), '#edit-form' !!}
     <script>
         $(document).ready(function() {
 

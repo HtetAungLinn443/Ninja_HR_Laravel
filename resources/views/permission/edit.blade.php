@@ -29,7 +29,7 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\UpdatePermission'), 'edit-form' !!}
+    {!! JsValidator::formRequest('App\Http\Requests\UpdatePermission'), '#edit-form' !!}
     <script>
         $(document).ready(function() {
 

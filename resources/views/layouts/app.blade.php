@@ -29,14 +29,15 @@
     {{-- Select 2 --}}
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+    {{-- viewjs --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.css"
+        integrity="sha512-zdX1vpRJc7+VHCUJcExqoI7yuYbSFAbSWxscAoLF0KoUPvMSAK09BaOZ47UFdP4ABSXpevKfcD0MTVxvh0jLHQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     {{-- Main CSS --}}
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+
     @yield('extra_css')
-
-
-
-    {{-- @vite(['resources/js/app.js', 'resources/js/vendor/webauthn/webauthn.js']) --}}
-
 
 </head>
 
@@ -97,6 +98,15 @@
                                 </a>
                             </li>
                         @endcan
+                        @can('view_salary')
+                            <li>
+                                <a href="{{ route('salary.index') }}">
+                                    <i class="fa-solid fa-money-bill"></i>
+                                    <span>Salary</span>
+                                </a>
+                            </li>
+                        @endcan
+
                         @can('view_department')
                             <li>
                                 <a href="{{ route('department.index') }}">
@@ -121,6 +131,14 @@
                                 </a>
                             </li>
                         @endcan
+                        @can('view_project')
+                            <li>
+                                <a href="{{ route('project.index') }}">
+                                    <i class="fa-solid fa-toolbox"></i>
+                                    <span>Project</span>
+                                </a>
+                            </li>
+                        @endcan
                         @can('view_attendance')
                             <li>
                                 <a href="{{ route('attendance.index') }}">
@@ -134,6 +152,14 @@
                                 <a href="{{ route('attendance.overview') }}">
                                     <i class="fa fa-calendar-check"></i>
                                     <span>Attendance (Overview)</span>
+                                </a>
+                            </li>
+                        @endcan
+                        @can('view_attendance_overview')
+                            <li>
+                                <a href="{{ route('payroll') }}">
+                                    <i class="fa-solid fa-money-check"></i>
+                                    <span>Payroll</span>
                                 </a>
                             </li>
                         @endcan
@@ -169,19 +195,9 @@
                                 <span>Documentation</span>
                                 <span class="badge badge-pill badge-primary">Beta</span>
                             </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-calendar"></i>
-                                <span>Calendar</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <i class="fa fa-folder"></i>
-                                <span>Examples</span>
-                            </a>
                         </li> --}}
+
+
                     </ul>
                 </div>
                 <!-- sidebar-menu  -->
@@ -229,9 +245,9 @@
                                 <i class="fa fa-user-clock"></i>
                                 <p class="m-0">Attendance</p>
                             </a>
-                            <a href="{{ route('checkin-checkout@user') }}">
-                                <i class="fa-solid fa-qrcode"></i>
-                                <p class="m-0">Home</p>
+                            <a href="{{ route('my-project.index') }}">
+                                <i class="fa-solid fa-toolbox"></i>
+                                <p class="m-0">Project</p>
                             </a>
                             <a href="{{ route('profile#Page') }}">
                                 <i class="fa fa-user"></i>
@@ -291,6 +307,13 @@
 {{-- main js --}}
 <script src="{{ asset('js/app.js') }}"></script>
 
+{{-- Viewer js --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/viewerjs/1.11.3/viewer.min.js"
+    integrity="sha512-f8kZwYACKF8unHuRV7j/5ILZfflRncxHp1f6y/PKuuRpCVgpORNZMne1jrghNzTVlXabUXIg1iJ5PvhuAaau6Q=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+{{-- Sortable js --}}
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 <script>
     $(document).ready(function() {
         let token = document.head.querySelector('meta[name="csrf-token"]');

@@ -69,7 +69,7 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\UpdateAttendance'), 'edit-form' !!}
+    {!! JsValidator::formRequest('App\Http\Requests\UpdateAttendance'), '#edit-form' !!}
     <script>
         $(document).ready(function() {
             $('.date').daterangepicker({

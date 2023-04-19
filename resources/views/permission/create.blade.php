@@ -27,7 +27,7 @@
     </div>
 @endsection
 @section('script')
-    {!! JsValidator::formRequest('App\Http\Requests\StorePermission'), 'create-form' !!}
+    {!! JsValidator::formRequest('App\Http\Requests\StorePermission'), '#create-form' !!}
 
     <script>
         $(document).ready(function() {

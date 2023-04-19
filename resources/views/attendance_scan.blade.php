@@ -45,7 +45,7 @@
     <div class="card mb-3">
 
         <div class="card-body">
-            <h5 class="mb-2 text-center">Attendance History</h5>
+
             {{-- Attendance Overview --}}
             <div class="row mb-3">
 
@@ -90,8 +90,13 @@
                     </div>
                 </div>
             </div>
+            <h5 class="my-2 ">Payroll</h5>
+
+            <div class="payroll_table"></div>
+            <h5 class="my-2 ">Attendance Overview</h5>
             <div class="attendance_overview_table mb-4"></div>
             {{-- Attendance History DataTable --}}
+            <h5 class="my-2 ">Attendance</h5>
             <table class=" table-bordered table " id="user-table" style="width: 100%;">
                 <thead>
                     <tr class="">
@@ -100,7 +105,6 @@
                         <th class="text-center">Date</th>
                         <th class="text-center">Check In Time</th>
                         <th class="text-center">Check Out Time</th>
-
                         <th class="hidden">Updated at</th>
                     </tr>
                 </thead>
@@ -219,8 +223,8 @@
             })
 
             // Attendance Overview
-
             attendanceOverviewTable();
+            payrollTable();
 
             function attendanceOverviewTable() {
                 var month = $('.select-month').val();
@@ -236,9 +240,20 @@
                 dataTable.ajax.url(`/my-attendance/datatable/ssd?month=${month}&year=${year}`).load();
             }
 
+            function payrollTable() {
+                var month = $('.select-month').val();
+                var year = $('.select-year').val();
+                $.ajax({
+                    url: `/my-payroll-table?month=${month}&year=${year}`,
+                    type: 'GET',
+                    success: function(res) {
+                        $('.payroll_table').html(res);
+                    }
+                })
+            }
             $('.search-btn').on('click', function(event) {
                 event.preventDefault();
-
+                payrollTable();
                 attendanceOverviewTable();
             })
 

@@ -7,10 +7,16 @@ use App\Http\Controllers\CompanySettingController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\MyAttendanceController;
+use App\Http\Controllers\MyPayrollController;
+use App\Http\Controllers\MyProjectController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SalaryController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Laragear\WebAuthn\WebAuthn;
@@ -57,6 +63,8 @@ Route::middleware(['auth'])->group(function () {
     // Attendance Scan Page
     Route::get('attendance-scan/page', [AttendanceScanController::class, 'attendanceScan'])->name("attendanceScan@admin");
     Route::get('attendance-scan/store', [AttendanceScanController::class, 'scanStore']);
+
+    // My Attendance
     Route::get('my-attendance/datatable/ssd', [MyAttendanceController::class, 'myAttendanceDb']);
     Route::get('my-attendance-overview-table', [MyAttendanceController::class, 'attendanceOverviewTable'])->name('attendance.overview-table');
 
@@ -64,4 +72,28 @@ Route::middleware(['auth'])->group(function () {
     Route::get('attendance-overview', [AttendanceController::class, 'attendanceOverview'])->name('attendance.overview');
     Route::get('attendance-overview-table', [AttendanceController::class, 'attendanceOverviewTable'])->name('attendance.overview-table');
 
+    // Salary
+    Route::resource('salary', SalaryController::class);
+    Route::get('salary/datatable/ssd', [SalaryController::class, 'salaryDatatable'])->name('salary@datatable');
+
+    // Payroll
+    Route::get('payroll', [PayrollController::class, 'payroll'])->name('payroll');
+    Route::get('payroll-table', [PayrollController::class, 'payrollTable'])->name('payroll.table');
+
+    // My payroll
+    Route::get('my-payroll/datatable/ssd', [MyPayrollController::class, 'ssd']);
+    Route::get('my-payroll-table', [MyPayrollController::class, 'myPayroll']);
+
+    // Project
+    Route::resource('project', ProjectController::class);
+    Route::get('project/datatable/ssd', [ProjectController::class, 'projectDatatable'])->name('project@datatable');
+
+    // My Project
+    Route::resource('my-project', MyProjectController::class)->only(['index', 'show']);
+    Route::get('my-project/datatable/ssd', [MyProjectController::class, 'myProjectDatatable']);
+
+    // Task
+    Route::resource('task', TaskController::class);
+    Route::get('task-data', [TaskController::class, 'taskData']);
+    Route::get('task-draggable', [TaskController::class, 'taskDraggable']);
 });
