@@ -47,6 +47,7 @@
                             } else {
                                 $attendanceDays += 0;
                             }
+                        
                             if (!is_null($attendance->checkout_time)) {
                                 if ($attendance->checkout_time < $break_end_time) {
                                     $attendanceDays += 0;

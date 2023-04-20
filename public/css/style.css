@@ -616,6 +616,7 @@ table.dataTable>tbody>tr.child ul.dtr-details li {
 .action-icon {
     display: flex;
     gap: 2px;
+    justify-content: center;
 }
 
 .action-icon a {
