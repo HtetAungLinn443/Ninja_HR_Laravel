@@ -36,11 +36,7 @@
                                     <small class="text-danger">{{ $message }}</small>
                                 @enderror
                             </div>
-                            <div class="form-check my-3">
-                                <input type="checkbox" name="remember" value="{{ old('remember') }}"
-                                    class=" form-check-input" id="remember">
-                                <label for="remember">Remember Me</label>
-                            </div>
+
                             <div class="my-3 ">
                                 <button class="btn btn-primary btn-block">Login</button>
                             </div>
